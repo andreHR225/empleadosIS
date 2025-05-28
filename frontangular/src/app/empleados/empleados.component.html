@@ -1,0 +1,161 @@
+<div class="container mt-4">
+  <h2 class="mb-4 text-center fw-bold">Gestión de Empleados</h2>
+
+  <div class="form-box">
+  <form #empleadoForm="ngForm" (ngSubmit)="guardarEmpleado()">
+    <!-- ID Empleado -->
+    <div class="mb-3">
+      <label class="form-label">ID Empleado:</label>
+      <input type="text" class="form-control"
+             [ngClass]="{ 'is-invalid': empleadoForm.submitted && !idempleado.valid }"
+             [(ngModel)]="empleado.idempleado" name="idempleado" required #idempleado="ngModel" />
+      <div class="invalid-feedback" *ngIf="empleadoForm.submitted && !idempleado.valid">
+        El ID de empleado es obligatorio.
+      </div>
+    </div>
+
+    <!-- Nombre -->
+    <div class="mb-3">
+      <label class="form-label">Nombre:</label>
+      <input type="text" class="form-control"
+             [ngClass]="{ 'is-invalid': empleadoForm.submitted && !nombre.valid }"
+             [(ngModel)]="empleado.nombre" name="nombre" required #nombre="ngModel" />
+      <div class="invalid-feedback" *ngIf="empleadoForm.submitted && !nombre.valid">
+        El nombre es obligatorio.
+      </div>
+    </div>
+
+    <!-- Dirección -->
+    <div class="mb-3">
+      <label class="form-label">Dirección:</label>
+      <input type="text" class="form-control"
+             [(ngModel)]="empleado.direccion" name="direccion" />
+    </div>
+
+    <!-- Teléfono -->
+    <div class="mb-3">
+      <label class="form-label">Teléfono:</label>
+      <input type="text" class="form-control"
+             [(ngModel)]="empleado.telefono" name="telefono" />
+    </div>
+
+    <!-- NIT -->
+    <div class="mb-3">
+      <label class="form-label">NIT:</label>
+      <input type="text" class="form-control"
+             [(ngModel)]="empleado.nit" name="nit" />
+    </div>
+
+    <!-- Correo -->
+    <div class="mb-3">
+      <label class="form-label">Correo:</label>
+      <input type="email" class="form-control"
+             [ngClass]="{ 'is-invalid': empleadoForm.submitted && !correo.valid }"
+             [(ngModel)]="empleado.correo" name="correo" required #correo="ngModel" />
+      <div class="invalid-feedback" *ngIf="empleadoForm.submitted && !correo.valid">
+        El correo es obligatorio y debe ser válido.
+      </div>
+    </div>
+
+    <!-- DPI -->
+    <div class="mb-3">
+      <label class="form-label">DPI:</label>
+      <input type="text" class="form-control"
+             [(ngModel)]="empleado.dpi" name="dpi" />
+    </div>
+
+    <!-- Fecha de Inicio -->
+    <div class="mb-3">
+      <label class="form-label">Fecha de Inicio:</label>
+      <input type="date" class="form-control"
+             [(ngModel)]="empleado.finicio" name="finicio" />
+    </div>
+
+    <!-- Fecha de Fin -->
+    <div class="mb-3">
+      <label class="form-label">Fecha de Fin:</label>
+      <input type="date" class="form-control"
+             [(ngModel)]="empleado.ffin" name="ffin" />
+    </div>
+
+    <!-- Observaciones -->
+    <div class="mb-3">
+      <label class="form-label">Observaciones:</label>
+      <textarea class="form-control"
+                [(ngModel)]="empleado.observaciones" name="observaciones"></textarea>
+    </div>
+
+    <!-- Estatus -->
+    <div class="mb-3">
+      <label class="form-label">Estatus:</label>
+      <select class="form-control"
+              [(ngModel)]="empleado.estatus" name="estatus">
+        <option value="A">Activo</option>
+        <option value="I">Inactivo</option>
+      </select>
+    </div>
+
+    <!-- Rol ID -->
+    <div class="mb-3">
+      <label class="form-label">Rol ID:</label>
+      <input type="text" class="form-control"
+             [(ngModel)]="empleado.rol_id" name="rol_id" />
+    </div>
+
+    <!-- Botón Guardar -->
+    <button type="submit" class="btn btn-primary w-100">
+      Registrar / Actualizar Empleado
+    </button>
+  </form>
+
+  <p *ngIf="mensaje" [ngClass]="{'text-success': tipoMensaje === 'exito', 'text-danger': tipoMensaje === 'error'}">
+  {{ mensaje }}
+</p>
+ 
+</div>
+
+
+  <h3 style="margin-top: 40px; text-align: center;">Lista de Empleados</h3>
+
+<table class="table table-bordered table-striped" *ngIf="empleados.length > 0">
+    
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Dirección</th>
+      <th>Teléfono</th>
+      <th>Correo</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let emp of empleados">
+  <td>{{ emp.idempleado }}</td>
+  <td>{{ emp.nombre }}</td>
+  <td>{{ emp.direccion }}</td>
+  <td>{{ emp.telefono }}</td>
+  <td>{{ emp.correo }}</td>
+<td>
+  <div class="botones-accion">
+    <button class="btn-editar" (click)="editarEmpleado(emp)">
+      <i class="fas fa-edit"></i> Editar
+    </button>
+    <button class="btn-eliminar" (click)="eliminarEmpleado(emp.idempleado)">
+      <i class="fas fa-trash-alt"></i> Eliminar
+    </button>
+  </div>
+</td>
+
+
+
+
+</tr>
+
+  </tbody>
+</table>
+</div>
+
+
+
+
